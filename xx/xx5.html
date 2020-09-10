@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+//一,改变原数组
+	//1,push方法
+// var arr=[];
+// Array.prototype.push=function(){
+// 	for(var i=0;i<arguments.length;i++){
+// 		this[this.length]=arguments[i];
+// 	}
+// 	return this.length;
+// }
+//2,pop方法  将数组最后一位剪切掉 不用传参
+//3,shift方法    
+//4,unshift() 在数组前面加数据
+//5,reverse  逆转数组顺序
+//6,splice() 从第几位开始，截取多少的长度，在切口处添加新的数据splice(0,0,x)==unshift(x)
+//如果是负数，就是arr.length+该负数 位
+// var arr=[1,2,3,5];
+// arr.splice(3,1,8);
+// console.log(arr);     //[1,2,3,8]
+//7,sort()是按照asc码排序的 可以排序字符
+//var arr=[1,2,3,4,10,6,5]    //arr.sort()-->[1,10,3,4,5,6]
+//按数字排序：
+//1，必须写两个形参
+//2，看返回值，1)当返回值为负数时，前面的数放在前面
+//            2)当返回值位正数时，后面的数放在前面
+//            3)当返回值为0时，不变 
+// var arr=[12,3,5,2,8,5,10]
+// arr.sort(function(a,b){
+//     if(a>b){                //升序    if(a<b)-->降序
+//     	return 1;
+//     }else{
+//     	return -1;
+//     }
+// })
+// //即
+// arr.sort(function(a,b){
+//     return a-b;           //升序
+// })
+// arr.sort(function(a,b){
+//     return b-a;           //降序
+// })
+
+//题
+//1)给一个有序数组，乱序(Math.random()-->产生0-1之间的随机数)
+// var arr=[1,2,3,4,5,6,7];
+// arr.sort(function(){
+//    return Math.random()-0.5;      //每次返回一个随机值
+// })
+
+//2)给对象按照年龄大小，升序排序
+// var obj1={
+// 	name:"aaa",
+// 	age:18
+// }
+// var obj2={
+// 	name:"bbb",
+// 	age:34
+// }
+// var obj3={
+// 	name:"aaa",
+// 	age:10
+// }
+// var arr=[obj1,obj2,obj3];
+// arr.sort(function(a,b){
+// 	return a.age-b.age;
+// });
+//3)按照字节长度升序排序
+// function retBytes(str){
+// 	var num=str.length;
+// 	for(var i=0;i<str.length;i++){
+// 		if(str.charCodeAt(i)>255){
+// 			num++;
+// 		}
+// 	}
+// 	return num;
+// }
+// var arr=["yiersan","一二二","ersan一二","56gghhhda"];
+// arr.sort(function(a,b){
+//     return retBytes(a)-retBytes(b);
+// });
+
+//不改变原数组
+//1,concat
+//2,join(x)  用x将数组中的元素连接起来，形成一个字符串，返回该字符串
+// var arr=[1,3,34,45,3,2,77];
+// console.log(arr.join("~"));     //1~3~34~45~3~2~77
+// console.log(arr);
+//3,split()--string的方法  与join互逆
+// split(x)  再由x的地方将字符串分割开来 形成一个数组，返回该数组
+// var str="d?f?df?bn?g?s?a";
+// console.log(str.split("?"));    //["d", "f", "df", "bn", "g", "s", "a"]
+//4,toString  数组的toString就是将数组转化为字符串
+//5,slice(x,y)  从x位开始截取,截取到y位 返回截取的内容，但是原数组不变
+// var arr=[12,334,2,2,5,8,9];
+// console.log(arr.slice(1,3));   //[334,2]
+// console.log(arr);              //[12,334,2,2,5,8,9]
+// //如果是一个参数slice(x) 从x位开始截取，一直截取到最后
+// console.log(arr.slice(2));     //[2,2,5,8,9] 
+// //没有参数-->整个截取
+// console.log(arr.slice());      //[12,334,2,2,5,8,9]
+
+// 类数组
+//属性为索引(数字)属性，必须要有length属性，最好加上push属性
+// var obj={
+// 	"0":"a",
+// 	"1":"b",
+// 	"2":"c",
+// 	"3":"d",
+// 	name:"ppp",
+// 	length:4,
+// 	push:Array.prototype.push,
+// 	splice:Array.prototype.splice
+// }
+
+// console.log(obj[0]);  //a
+// console.log(obj[1]);  //b
+// obj.push("e");
+// console.log(obj[4]);  //e
+
+// var obj1={
+// 	"2":"a",
+// 	"3":"b",
+// 	"4":"c",
+// 	length:3,
+// 	push:Array.prototype.push
+// }
+// obj1.push("d");
+// obj1.push("e");
+// console.log(obj1);   //{2: "a", 3: "d", 4: "e", length: 5, push: ƒ}
+
+// // 因为
+// Array.prototype.push=function(target){
+// 	obj[obj.length]=target;
+// 	obj.length++;
+// }
+
+
+// // ----------------------
+// //封装type
+// function type(target){
+// 	var ret=typeof(target);
+// 	var temp={
+// 		"[object Array]":"Array",
+// 		"[object Object]":"Object",
+// 		"[object Number]":"number-object",
+// 		"[object String]":"string-object",
+// 		"[object Boolean]":"boolean-object"
+// 	}
+// 	if(target===null){
+// 		return "null";
+// 	}else if(ret=="object"){
+// 		var str=Object.prototype.toString.call(target);
+// 		return temp[str];
+// 	}
+// 	else{
+// 		return ret;     //基本类型的直接返回typeof()
+// 	}
+// }
+
+//--------------
+//数组去重函数hash方法
+// Array.prototype.unique=function(){
+// 	var temp={},
+// 	    arr=[],
+// 	    len=this.length;
+// 	for(var i=0;i<len;i++){
+// 		if(!temp[this[i]]){            //当对象的属性值为undefined时
+// 			temp[this[i]]="has";       //给属性加值
+// 			arr.push(this[i]);
+// 		}
+// 	}
+// 	return arr;
+// }
+// var arr1=["a","a","a",1,2,1,3,3,4,2];
+// arr1=arr1.unique();
+// console.log(arr1);
+
+</script>
+</body>
+</html> 
+

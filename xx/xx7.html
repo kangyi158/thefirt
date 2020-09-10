@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- 111 -->
+<html>
+<head>
+	<title>454545</title>
+</head>
+<body>
+	<div id="aaa">111</div>
+	<div>222</div>
+	<div class="bbb">333</div>
+	<div class="xxx">
+    	<strong>444</strong>
+    	<span>4445</span>
+    	<strong>4446</strong>
+    </div><span>0</span>   09009
+    <div id="fff" class="x">
+    	<span>
+    		<strong class="demo">
+    			<a href="#" id="mmm">555</a>
+    		</strong>
+    	</span>
+    	<div>
+    		<span>666</span>
+    	</div>
+    	<p>777</p>
+        <span class="df"></span>
+       <a class="sd"></a>
+    </div>
+    <ul class="rrr">
+    	<li>1</li>
+    	<li>2</li>
+    	<li>3</li>
+    </ul>
+    
+<script type="text/javascript">
+
+ var a=document.getElementsByClassName('sd')[0];
+ var span=document.getElementsByClassName('df')[0];
+
+//DOM基本操作
+//查
+//查看元素节点
+// * document代表整个文档
+//DOM选择器(实时)
+// * document.getElementById()  通过id选择元素
+// var s= document.getElementById('aaa'); 
+// console.log(s);
+// // * document.getElementsByTagName()  通过标签名选择元素
+//  var div=document.getElementsByTagName('div');
+//  console.log(div);    //成类数组展示div标签[div#aaa, div.bbb, aaa: div#aaa]
+// // * document.getElementsByClassName()  类名
+// var a=document.getElementsByClassName('bbb');
+// console.log(a);
+// // * document.getElementsByName()    只有部分标签name可生效
+
+// // css选择器  (不时实)
+// // * document.querySelector()
+// var b=document.querySelector('div>span strong.demo a')
+// console.log(b);
+// // * document.querySelectorAll()
+
+// //------·························---------------------
+
+// //一、Node类型 
+// 1,元素节点
+// 2,属性节点
+// 3,文本节点
+// 4,
+// 8,注释节点
+// 9,文档节点DOCUMENT
+
+//------·························---------------------
+//nodetype
+var fff=document.getElementById('fff');
+console.log(fff.childNodes.length);    //7个 因为还要包含文本节点
+if(fff.nodeType==Node.ELEMENT_NODE){
+	console.log("Node is an element");
+}
+if(fff.nodeType==1){                   //检查节点类型,看他是不是一个元素
+	console.log("Node is an element");
+}
+
+// //1，nodeName和nodeValue
+// //nodeName中始终保存着元素的标签，只读  nodeValue:文本节点和注释节点的文本内容，可读写
+console.log(fff.nodeName);     //DIV
+console.log(fff.nodeValue);    //null
+console.log(fff.previousSibling.nodeValue);  //09009
+//attributes  查看Element节点的属性集合
+console.log(fff.attributes);//NamedNodeMap {0: id, id: id, length: 1}
+
+
+// //2，节点关系
+// //1)每个节点都有一个childNodes属性，其中保存着一个NodeList对象，NodeList是一个类数组
+// console.log(fff.childNodes);   //NodeList(3) [text, span, text]
+// var arrayOfNodes=Array.prototype.slice.call(fff.childNodes,0);
+// console.log(arrayOfNodes);     //(3) [text, span, text]  将NodesList对象转换为数组形式
+// //2)包含在同一个childNodes列表中的所有节点都具有相同的父节点，他们的parentNode属性都指向同一个节点
+// //  通过使用previousSibling和nextSiibling属性来访问同一列表中的其他属性
+// //  列表中第一个节点的previousSinling属性值为null，最后一个节点的nextSibling属性值为null
+// //  即someNode.firstChild.previousNode==null  someNode.lastChild.nextNode==null
+//   someNode.firstChild==someNode.childNodes[0] 
+//   someNode.lastChild==someNode.childNodes[someNode.childNodes.length-1]
+// var x=document.getElementsByClassName('xxx')[0];
+// var y=document.getElementsByClassName('bbb')[0];
+// console.log(x.previousSibling);              //#text
+// console.log(x.nextSibling);                  //<span>0</span>
+// console.log(x.parentNode);                   //<body></body>
+// console.log(y.parentNode);                   //<body></body>
+// console.log(x.firstChild.previousSibling);   //null
+// console.log(x.lastChild.nextSibling);        //null
+// //3)hasChildNodes()方法，在节点包含一或多个子节点时返回true;
+// //4)所有节点的最后一个属性是ownerDocument,该属性指向表示整个文档的文档节点
+// 3,元素节点树
+// parentElement -> 返回当前元素的父元素节点
+// childen -> 只返回当前元素的元素子节点
+// node.childElementCount === node.children.length 当前元素的子元素节点
+// firstElementChild -> 返回第一个子元素节点
+// lastElementChild -> 返回最后一个子元素节点
+// nextElementSibling -> 后一个元素节点
+// previuosElementSibling -> 前一个元素节点
+
+// //4,操作节点
+// //1)appendChild() 在childList的末尾添加一个子节点，添加后返回新的子节点,剪切功能
+// //  如果传入到appendChild()中的节点已经是文档中的一部分了，那结果就是将该节点从原来的地方移到新位置
+//     //someNode有多个子节点
+//     var returnNode=someNode.appendChild(someNode.firstChild);
+//     console.log(returnNode==someNode.firstChild);           //false
+//     console.log(returnNode==someNode.lastChild);            //true
+// //2)insertBefore()  插入节点 两个参数:要插入的节点 ，作为参照的节点
+//    //插入后成为最后一个子节点==appendChild() 
+//    returnNode=someNode.insertBefore(newNode,null);
+//    console.log(returnNode.nextSibling);                     //null
+//    //插入后成为第一个子节点
+//    returnNode=someNode.insertBefore(newNode,someNode.firstChild);
+//    console.log(returnNode.previousSibling);                 //null
+//    //插入后成为倒数第二子节点
+//    returnNode=someNode.insertBefore(newNode,someNode.lastChild);
+//    console.log(returnNode.nextSibling);                     //someNode.lastChild
+// //3)replaceChild() 替换子节点 两个参数：要插入的节点 ，要移除的节点 返回被移除的节点
+//    //替换最后一个子节点
+//    returnNode=someNode.replaceChild(newNode,someNode.lastChild);
+//    console.log(returnNode);                                //someNode.lastNode
+// //4)parent.removeChild() 移除子节点 一个参数：要移除的节点  返回该节点
+//    //移除最后一个节点
+//    returnNode=someNode.removeChild(someNode.lastChild);
+//    console.log(returnNode);                                //someNode.lastNode
+//5)所有节点都具有的两个属性方法
+    // child.remove()  自身节点调用方法移除自身
+    //cloneNode() 用于创建调用这个方法的节点的一个完全相同的副本  返回复制后的节点
+    //            接受一个布尔值 false:执行浅复制，即只复制本节点  true:执行深复制
+    //            复制后返回的节点副本属于文档所有，但并没有给他指定父节点。需要用以上方法为其指定父节点
+//     var r=document.getElementsByClassName('rrr')[0];
+//     var deepList=r.cloneNode(true);
+//     console.log(deepList.childNodes.length);      //7
+//     var shallowList=r.cloneNode(false);
+//     console.log(shallowList.childNodes.length);   //0
+// //normalize() 处理文档树中的文本节点  如果当某个节点调用这个方法时，就会在该节点的后代节点中查找:
+//  // 1)  空文本节点--->删除  2)找到相邻的两个文本节点--->将他们合并
+
+
+// //----------------------------------
+// //二、Document类型   表示文档
+
+ console.log(document.documentElement);
+ console.log(document.childNodes[1]);
+ console.log(document.childNodes[0]);
+ console.log(document.childNodes[2]);
+ console.log(document.title);
+//----------------------------------
+
+//返回元素e的第n个兄弟元素节点，n为正，返回后面的，n为负，返回前面的
+function retSibling(e,n){
+while(e&&n){
+    if(n>0){
+        if(e.NextElementSibling){
+            e=e.nextElementSibling;
+        }else{
+            for(e=e.nextSibling;e&&e.nodeType!=1;){
+                e=e.nextSibling;
+            }
+            n--;
+        }
+    }else{
+        if(e.previousElementSibling){
+            e=e.previousElementSibling;
+        }else{
+            for(e=e.previousSibling;e&&e.nodeType!=1;){
+                e=e.previousSibling;
+            }
+        }
+        n++;
+     }
+}
+return e;
+}
+console.log(retSibling(fff,-2));
+//返回elem元素节点的第n层父元素节点
+function retParent(elem,n){
+    while(elem&&n--){
+        elem=elem.parentElement;
+    }
+    return elem;
+}
+console.log(retParent(fff,2));
+//封装myChilden方法  找该元素的子元素节点
+function myChilden(elem){
+    var arr=[],
+        len=elem.childNodes.length;
+    for(var i=0;i<len;i++){
+        if(elem.childNodes[i].nodeType==1){
+            arr.push(elem.childNodes[i]);
+        }
+    }
+    return arr;
+}
+console.log(myChilden(fff));           // [span, div, p]
+//hasChilden方法，不能使用childen方法
+function hasChilden (elem){
+    var len=elem.childNodes.length;
+    for(var i=0;i<len;i++){
+        if(elem.childNodes[i].nodeType==1){
+            return true;
+        }
+    }
+    return false;
+}
+var mmm=document.getElementById('mmm');
+console.log(hasChilden(fff));         //true
+console.log(hasChilden(mmm));         //false
+//封装函数insertAfter(),功能类似insertBefore()
+Element.prototype.insertAfter=function(targetNode,node){
+    var nextNode=node.nextElementSibling;
+    if(nextNode==null){
+        this.appendChild(targetNode);
+    }else{
+        this.insertBefore(targetNode,nextNode);
+    }
+}
+
+</script> 
+</body>
+</html>
+<!-- comment -->
+

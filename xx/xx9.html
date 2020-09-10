@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<!-- 	<p>Thr current date and time is:
+        <script type="text/javascript">
+        	document.write("<strong>"+(new Date).toString()+"</strong>");
+        </script>
+	</p>
+<script type="text/javascript">
+	 -->
+<!-- <p>badfhhjajbbbvnjisjssjjjjkjkjkjkjk</p> -->
+
+<!-- <table>
+	<tr>
+		<td>cell1.1</td>
+		<td>cell1.2</td>
+	</tr>
+	<tr>
+		<td>cell2.1</td>
+		<td>cell2.2</td>
+	</tr>
+</table> -->
+
+<!-- <div id="style">sdfgf</div>
+<div class="ccc" style="width: 150px;height: 150px;background-color:pink;position: absolute;left: 0;top: 0;"></div> -->
+<!-- <ul>
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+</ul> -->
+<script type="text/javascript">
+	// window.onload=function(){
+		// document.write("aaaaaa");
+	// };
+// 	var element=document.createElement("div");
+// 	element.className="message";
+// 	var text=document.createTextNode("hihihi");
+// 	var anotherText=document.createTextNode("kikiki");
+// 	element.appendChild(anotherText);
+// 	element.appendChild(text);
+// 	document.body.appendChild(element);
+
+// //插入js代码
+// function loadScriptString(code){
+// 	var script=document.createElement("script");
+// 	script.type="text/javascript";
+// 	try{
+// 		script.appendChild(document.createTextNode(code));
+// 	}catch(ex){
+//         script.text=code;
+// 	}
+//     document.body.appendChild(script);
+// }
+// loadScriptString("function sayHi(){alert('Hi');}");
+
+// //插入ccs代码
+// function loadStyleString(css){
+//     var style=document.createElement("style");
+//     style.type="text/css";
+//     try{
+//     	style.appendChild(document.createTextNode(css));
+//     }catch(ex){
+//     	style.styleSheet.cssText=css;
+//     }
+//     var head=document.getElementsByTagName("head")[0];
+//     head.appendChild(style);
+//     elem.style=style;
+// }
+// loadStyleString("#style{width:100px;height:100px;background-color:red;}");
+
+//创建table表格
+// function loadTable(){
+// 	var table=document.createElement("table");
+//     table.border=1;
+//     table.width="100%";
+//     var tbody=document.createElement("tbody");
+//     tbody.insertRow(0);
+//     tbody.rows[0].insertCell(0);
+//     tbody.rows[0].cells[0].appendChild(document.createTextNode("cell 1.1"));
+//     tbody.rows[0].insertCell(1);
+//     tbody.rows[0].cells[1].appendChild(document.createTextNode("cell 1.2"));
+//     tbody.insertRow(1);
+//     tbody.rows[1].insertCell(0);
+//     tbody.rows[1].cells[0].appendChild(document.createTextNode("cell 2.1"));
+//     tbody.rows[1].insertCell(1);
+//     tbody.rows[1].cells[1].appendChild(document.createTextNode("cell 2.2"));
+//     document.body.appendChild(table);
+// }
+// loadTable();
+
+//事件
+//1,ele.onxxx=function(event){}
+//兼容性很好，但是一个元素的同一个事件上只能绑定一个函数
+//基本等同于写在HTML行间上
+//this指向dom元素本身
+//2,obj.addEventListener(type,function,false);
+                      //事件类型,处理函数,
+//可以为一个事件绑定多个处理程序
+//this指向dom元素本身
+//3，obj.attachEvent('on'+type,function);
+              //    'on'+事件类型+处理函数
+//IE独有，一个事件可以绑定多个处理程序
+//this指向window
+// var div=document.getElementsByClassName('ccc')[0];
+// div.onclick=function(){
+// 	this.style.backgroundColor='skyblue';
+// }
+// div.addEventListener('click',function(){
+// 	this.style.backgroundColor="green";
+// },false);
+
+//给<ul>列表中的每个<li>绑定click事件，当点击的时候输出他们的顺序
+// var lis=document.getElementsByTagName('li'),
+//     len=lis.length;
+// for(var i=0;i<len;i++){
+// 	lis[i].addEventListener('click',function(){
+// 		console.log(i);       //都输出5,因为形成闭包
+// 	},false);
+// }
+
+//使用立即执行函数消除闭包
+// var lis=document.getElementsByTagName('li'),
+//     len=lis.length;
+// for(var i=0;i<len;i++){
+// 	(function(i){
+// 		lis[i].addEventListener('click',function(){
+// 			console.log(i+1);
+// 		},false);
+// 	}(i))
+// }
+
+// //封装兼容性addEvent
+// function addEvent(elem,type,handle){
+// 	if(elem.addEventListener){
+// 		elem.addEventListener(type,handle,false);
+// 	}else if(elem.attachEvent){
+// 		elem.attachEvent('on'+type,function(){
+// 			handle.call(elem);
+// 		})
+// 	}else{
+// 		elem['on'+type]=handle;
+// 	}
+// }
+
+// //解除事件处理程序  //若绑定匿名函数，则无法消除
+// 1,ele.onxxx = false/null;
+// 2,ele.removeEventListener(type,function,false);
+// 3,ele.detachEvent('on'+type,function);
+
+</script>
+</body>
+</html>

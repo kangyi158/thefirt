@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+// var user = {
+// count : 1,
+// getCount: function(){
+// console.log(this);
+// return this.count;
+// }
+// }
+// var func = user.getCount;
+// console.log(func());
+
+//定义在func普通函数中的this指向window对象(严格模式下为undefined)
+
+// function foo() {
+// 	console.log(this); //global object 译者注：其实就是window
+// };
+//  foo();
+// myapp = {};
+// myapp.foo = function() {
+// 	console.log(this); //points to myapp object
+// }
+ 
+// var link = document.getElementById("myId");
+// link.addEventListener("click", function() {
+// 	console.log(this); //points to link
+// }, false);
+
+for(var i=1;i<=3;i++){
+  setTimeout(function(){
+    console.log(i);
+  },0);
+};
+
+
+  </script>
+</body>
+</html>

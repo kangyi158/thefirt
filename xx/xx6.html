@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+//try...catch
+//try 在try里面发生错误，不会执行错误和错误后的try里面的代码 继续执行try catch后面的代码   没错的话正常执行
+//try里面的代码出错,跳到catch中,catch会生成error对象 传到e中  e中只有两个信息：name和message
+// try{
+// 	console.log("a");
+// 	console.log(b);
+// 	console.log("c");
+// }catch(e){
+//     console.log(e.name+" : "+e.message);
+// }
+// console.log("d");
+
+//---------------------------
+//es5标准模式"use strict"
+//1,不再兼容es3的一些不规则语法，使用全新的es5规范
+//2,两种用法：全局严格模式，局部严格模式(推荐)
+//3,是一行字符串，不会对不兼容严格模式的浏览器产生影响
+//4,不支持with , arguments,callee,caller,func，变量赋值前必须声明
+//  局部this必须被赋值(Person.call(null/undefined)赋值什么就是什么)，拒绝重复的属性和参数
+
+
+
+//----------------------------
+//with 改变作用域
+//with 语句的原本用意是为逐级的对象访问提供命名空间式的速写方式. 也就是在指定的代码区域, 直接通过节点名称调用对象。
+//with 通常被当做重复引用同一个对象中的多个属性的快捷方式，可以不需要重复引用对象本身。
+
+// var name="aaa";
+// var obj={
+// 	name:"bbb",
+// 	age:11
+// }
+// function test(){
+// 	var name="ccc";
+// 	with(obj){
+// 		console.log(name);   //bbb
+// 	}
+// }
+// test();
+//with缺点
+//1，导致数据泄露
+function foo(obj) {
+	with (obj) {
+		a = 2;
+	}
+}
+var o1 = {
+	a: 3
+};
+var o2 = {
+	b: 3
+}
+foo(o1);
+console.log(o1.a);	//2
+foo(o2);
+console.log(o2.a);	//underfined
+console.log(a);		//2，此时a被泄漏到全局作用域上
+
+//2，性能下降
+//原因是 JavaScript 引擎会在编译阶段进行数项的性能优化。其中有些优化依赖于能够根据代码的词法进行静态分析，并预先确定所有变量和函数的定义位置，才能在执行过程中快速找到标识符。但如果引擎在代码中发现了 with，它只能简单地假设关于标识符位置的判断都是无效的，因为无法知道传递给 with 用来创建新词法作用域的对象的内容到底是什么。
+
+
+
+
+</script>
+</body>
+</html>

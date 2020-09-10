@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xx8</title>
+</head>
+<body>
+
+<!-- minutes:<input type="text" value="0">
+seconds:<input type="text" value="0"> -->
+<!-- <div class="aaa" style="width: 200px;height: 200px;background-color: pink;"> </div> -->
+<div class="ccc" style="width: 150px;height: 150px;background-color: red;position: absolute;left: 0;top: 0;"></div>
+<style type="text/css">
+./*aaa:after{
+     content:"";
+     width: 100px;
+     height: 100px;
+     background-color: skyblue;
+     display: inline-block;
+}
+.bbb:after{
+	 content:"";
+     width: 100px;
+     height: 100px;
+     background-color: red;
+     display: inline-block;
+}
+*/
+</style>
+<script type="text/javascript">
+
+
+//日期对象Date()   纪录时刻
+// 封装函数，打印当前是几年几月几日几时几分几秒(用getTime来计算时间差)
+// var date=new Date();   //记录了date生成时的年月日时分秒，纪录时刻
+// //Date对象的方法(从零开始计数)
+// Date()        返回当日的日期和时间
+// getDate()     从Date对象返回一个月中的一天，当前的日期(1~31)
+// getDay()      从Date对象返回一周中的一天，当前的星期(0~6)
+// getMonth()    从Date对象中返回月份(0~11)
+// getFullYear() 从Date对象以四位数字返回年份
+// getMinutes()  返回Date对象的分钟(0~59)
+// getSeconds()  返回Date对象的秒数(0~59)
+// getTime()     返回自1970年1月1日至今的毫秒数    
+
+// setDate()     设置Date对象中月的某一天(1~31)
+// setDate()     以毫秒设置Date对象   
+
+// var date=new Date();  
+
+
+//定时器
+// //setInterval定时循环器   //window上的方法,this指向window//不准
+// //返回一个数，第几个定时器
+// var i=0;
+// var timer=setInterval(function(){  
+//     console.log(i++);
+//     if(i>10){
+//     	clearInterval(timer);
+//     }
+// },1000);               //每隔1000毫秒执行一次function  
+
+// var time=1000;
+// setInterval(function(){
+
+// },time);                    
+// time=2000;             //当time改变的时候，setInterval中的time还是1000，
+//                        // seiInterval只识别一次time
+
+//clearInterval(timer)  //清除setTnterval定时器
+
+
+//setTimeout 推迟的定时器  隔多少毫秒后执行function  只执行一次
+// var timer=setTimeout(function(){
+//     console.log("a");
+// },1000)
+
+// clearTimeout(timer);
+
+//三分钟计时器
+	// minutesNode = document.getElementsByTagName('input')[0];
+ //    secondsNode = document.getElementsByTagName('input')[1];
+ //    var minutes=0,
+ //        seconds=0;
+ //        setInterval(function(){
+ //        	seconds++;
+ //        	if(seconds==60){
+ //        		seconds=0;
+ //        		minutes++;
+ //        	}
+ //            secondsNode.value=seconds;
+ //            minutesNode.value=minutes;
+ //            if(minutes==3){
+ //            	var timer=1;
+ //            	clearInterval(timer);
+ //            }
+ //        },1000)
+
+
+
+//求滚动条滚动的x或y距离
+// function getScrollOffset(){
+// 	var a;
+// 	if(window.pageXOffset){
+// 		return{
+// 			x:window.pageXOffset,
+// 			y:window.pageYOffste,	
+// 		}
+// 	}else{
+// 			return{
+//             x:document.body.scrollLeft+document.documentElement.scrollLeft,
+//             y:document.body.scrollTop+document.documentElement.scrollTop,
+// 			}
+// 		}
+// 	}
+
+//查看可视窗口的尺寸
+  // window.innerWidth/innerHeight  IE8及IE8以下不兼容
+  // document.documentElement.clientWidth/clientHeight  标准模式下，任意浏览器都兼容
+  // document.body.clientWidth/clientHeight  适用于怪异/混杂模式下的浏览器
+//封装兼容性方法，返回浏览器可视窗口尺寸 getViewportOffset()
+// function getViewportOffset(){
+// 	if(window.innerWidth){
+// 		return{
+// 			width:window.innerWidth,
+// 			height:window.innerHeight
+// 		}
+// 	}else{
+// 		if(document.compatMode==="BackCompat"){
+// 				return{
+// 					width:document.body.clientWidth,
+// 					height:document.body.clientHeight
+// 				}
+// 			}else{
+// 			     return{
+// 				    width:document.documentElement.clientWidth,
+// 				    height:document.documentElement.clientHeight
+// 			}
+// 		}
+// 	}
+// }
+
+// //查看元素的几何尺寸  
+// domEle.getBoundingClientRect()  //dom元素都可以调用  返回的结果不是实时的
+// 返回一个对象，对象中包含left,right,bottom,top,height,width等属性
+// left和top代表该元素左上角的X和Y坐标，right和bottom代表该元素右下角的X和Y坐标
+// //查看元素的尺寸
+// dom.offsetWidth,dom.offsetHeight  包含padding尺寸
+// //查看元素的位置
+// dom.offsetLeft,dom.offsetTop   //如果父级无定位，返回相对文档的坐标
+//                                //如果有定位的父级，返回相对于最近的有定位的父级的坐标
+// dom.offsetParent
+// //返回最近的有定位的父级，如果没有，返回body,body.off
+
+//脚本化CSS
+
+//dom.style.prop  可读可写 行间样式,碰到float这样的保留字属性,前面应加上cssfloat-->cssfloat
+//                符合属性必须拆解，组合单词变成小驼峰式写法
+//                写入值必须是字符串格式
+
+// var div=document.getElementsByClassName("aaa")[0];
+// div.style.width="600px";
+
+// div.onclick=function(){
+// 	div.className="bbb";
+// }
+
+// //查询计算样式
+// // window.getComputedStyle(ele,null)
+// //获取当前元素所展示的所有css属性的显示值   只读
+// console.log(window.getComputedStyle(div,null).width);
+// console.log(window.getComputedStyle(div,null));
+// //获取伪元素的唯一方法
+// console.log(window.getComputedStyle(div,"after").width);
+
+// // currentStyle 当前样式风格 仅支持IE浏览器
+
+function getStyle(elem,prop){
+    if(window.getComputedStyle){
+    	return window.getComputedStyle(elem,null)[prop];
+    }else{
+    	return currentStyle[prop];
+    }
+}
+var div=document.getElementsByClassName('ccc')[0];
+var timer=setInterval(function(){
+    div.style.left=parseInt(getStyle(div,"left"))+10+'px';
+    if(parseInt(div.style.left)>500){
+    	clearInterval(timer);
+    }
+},100);
+div.onclick=function(){
+	this.style.backgroundColor='skyblue';
+}
+</script>
+</body>
+</html>

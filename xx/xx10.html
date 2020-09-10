@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		/*.wrapper{
+			width: 300px;
+			height: 300px;
+			background-color: pink;
+		}
+		.content{
+			margin-left: 300px;
+			width: 200px;
+			height: 200px;
+			background-color: skyblue;
+		}
+		.box{
+			margin-left: 200px;
+			width: 100px;
+			height: 100px;
+			background-color: yellow;
+		}*/
+		/*input{
+			border:1px,solid,#01f;
+		}*/
+	</style>
+</head>
+<body>
+ <!--    <div class="wrapper">
+    	<div class="content">
+    		<div class="box"></div>
+    	</div>
+    </div> -->
+
+
+<!-- <div style="width: 100px;height: 100px;background-color: pink;"></div> -->
+
+<!-- <div class="wrapper" style="width: 200px;height: 200px;background-color: pink;">
+	<div class="box" style="width: 100px;height: 100px;background-color:skyblue;"></div>
+</div>
+ -->
+
+<!--  <ul>
+ 	<li>1</li>
+ 	<li>2</li>
+ 	<li>3</li>
+ 	<li>4</li>
+ 	<li>5</li>
+ 	<li>6</li>
+ 	<li>7</li>
+ 	<li>8</li>
+ </ul> -->
+
+
+
+<!--  <div style="width: 100px;height: 100px;background-color: pink;position: absolute;left: 0;top: 0";></div> -->
+
+<script type="text/javascript">
+	
+//事件处理模型
+
+//事件冒泡
+//结构上(非视觉上)嵌套关系的元素，会存在事件冒泡的功能，即同一事件，自子元素冒泡向父元素。(自底向上)
+// var wrapper = document.getElementsByClassName('wrapper')[0];
+// var content = document.getElementsByClassName('content')[0];
+// var box = document.getElementsByClassName('box')[0];
+// wrapper.addEventListener('click',function(){
+// 	console.log('wrapperBubble');
+// },false);
+// content.addEventListener('click',function(){
+// 	console.log('contentBubble');
+	
+// },false);
+// box.addEventListener('click',function(){
+// 	console.log('boxBubble');
+// },false);
+
+//事件捕获
+//结构上(非视觉上)嵌套关系的元素，会存在事件捕获的功能，即同一事件，自父元素捕获至子元素(事件源元素)(自顶向下)
+//IE没有捕获事件
+// wrapper.addEventListener('click',function(){
+// 	console.log('wrapper');
+// },true);
+// content.addEventListener('click',function(){
+// 	console.log('content');
+// },true);
+// box.addEventListener('click',function(){
+// 	console.log('box');
+// },true);
+
+//触发顺序:先捕获,后冒泡,先绑定的先输出
+//focus,blur,submit,change,reset,select等事件不冒泡
+
+//取消冒泡和阻止默认事件
+//取消冒泡
+// 1,W3C标准 event.stopPropagation()
+// 2,IE谷歌: event.cancelBubble = true;
+//封装取消冒泡的函数
+// function stopBubble(event){
+// 	if(event.stopPropagation){
+// 		event.stopPropagetion();
+// 	}else{
+// 		event.cancelBubble = true;
+// 	}
+// }
+
+//阻止默认事件
+//默认事件--表单提交，a标签跳转，右键菜单等
+// 1,return false;  以对象属性注册的事件才生效
+// 2,event.preventDefault();  W3C标注IE9以下不兼容
+// 3,event.returnValue = false;兼容IE
+//封装阻止默认事件的函数cancelHandler(event)
+// function cancleHandler(event){
+// 	if(event.preventDefault){
+// 		event.preventDefault();
+// 	}else{
+// 		event.returnValue=false;
+// 	}
+// }
+
+// document.oncontextmenu = function(e){
+// 	console.log("a");
+// 	cancleHandler(e);
+
+// }
+
+
+//事件对象
+// event||window.event用于IE
+
+// var div = document.getElementsByTagName('div')[0];
+// div.onclick = function(e){
+// 	var event=e||window.event;
+// 	console.log(event);
+// }
+
+// 事件源对象: event.target  event.srcELement
+
+// var wrapper=document.getElementsByClassName('wrapper')[0];
+// var box=document.getElementsByClassName('box')[0];
+// wrapper.onclick = function(e){
+// 	var event=e||window.event;
+// 	console.log(event);
+// 	console.log(event.target);   //输出事件源对象 点击wrapper输出wrapper 点击box输出box
+// }
+
+
+//事件委托机制
+//在ul中，点击li输出他的内容
+  // var li=document.getElementsByTagName('li');
+  // var len=li.length;
+  // for(var i=0;i<len;i++){
+  // 	li[i].onclick=function(){
+  // 		console.log(this.innerText);
+  // 	}
+  // }
+
+  //利用事件冒泡和事件源对象,不用for循环给每个li绑定事件,
+  // var ul=document.getElementsByTagName('ul')[0];
+  // ul.onclick = function(e){
+  // 	var event=e||window.event;
+  // 	console.log(event.target.innerText);
+  // }
+
+
+// 事件类型
+//鼠标事件
+//click
+//mousedownq  
+//contexmenu  点击右键产生菜单
+
+
+
+//拖拽函数
+// function drag(elem){
+// 	var X,Y;
+//     elem.onmousedown = function (e) {
+// 	    X=e.pageX-parseInt(elem.style.left);
+// 	    Y=e.pageY-parseInt(elem.style.top);
+// 	    document.onmousemove = function(e){
+// 	    var event = e||window.event;
+//             elem.style.left = event.pageX-X+"px";
+//             elem.style.top = event.pageY-Y+"px";
+//         }
+//         document.onmouseup = function(){
+//             document.onmousemove = false;
+//         }
+//     }
+// }
+// var div = document.getElementsByTagName('div')[0];
+// drag(div);
+
+// mousedown mouseup中的button可以判断鼠标左右键  
+//右键不能触发click事件
+// button=0 左键 button=2 右键
+
+// document.onmousedown=function(e){
+// 	if(e.button==0){
+// 		console.log('left');
+// 	}else if(e.button==2){
+// 		console.log('right');
+// 	}
+// }
+
+//键盘事件
+// keydown --> keypress --> keyup   
+// keydown可以监测到所有键盘按键 除了Fn-->操作类按键
+// keypress只可以检测到字符类按键 -->对应asc码,可以转化为相应字符-->区分大小写
+
+  // document.onkeypress = function(e){
+  // 	console.log(String.fromCharCode(e.charCode));
+  // }
+// String.fromCharCode 将编码转化为字符
+
+
+
+
+</script>
+</body>
+</html>

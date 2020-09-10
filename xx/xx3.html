@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+//------------------------------------------------
+//要点
+//1，所有的引用类型都有一个’_ _ proto_ _'属性(也叫隐式原型，它是一个普通的对象)。
+
+// 2、所有的函数都有一个’prototype’属性(这也叫显式原型，它也是一个普通的对象)。
+
+// 3、所有引用类型，它的’_ _ proto_ _'属性指向它的构造函数的’prototype’属性。
+
+// 4、当试图得到一个对象的属性时，如果这个对象本身不存在这个属性，那么就会去它的’_ _ proto_ _'属性
+// (也就是它的构造函数的’prototype’属性)中去寻找。
+
+//原型prototype
+//1，定义：原型是function对象的一个属性，它定义了构造函数制造出的对象的公共祖先。
+//     通过该结构产生的对象，可以继承该原型的属性和方法。  原型就也是对象
+//2，利用原型特点和概念，可以提取共有属性。
+//3，_proto_指向原型 *可以人为改变他的指向
+//4,对象查看对象的构造函数-->constructor【构造器】 返回构造这个对象的构造函数
+//删除操作delete   
+//*虽然可以通过对象实例访问保存在原型中的值，但却不能通过对象实例重写原型中的值。如果在实例中添加一个与实例原   型名字相同的属性，该属性就会屏蔽原型中的属性,但是并没有改动原型中的该属性，只是自己的该属性改变了。
+//例：
+  //  function Person(){}
+  //  Person.prototype.name="Nicholas";
+  //  Person.prototype.age=29;
+  //  Person.prototype.job="Software Engineer";
+  //  Person.prototype.sayname=function(){
+  //  	alert(this.name);
+  //  };
+  //  var person1=new Person();
+  //  var person2=new Person();
+  //  person1.name="aaa";
+  // console.log(person1);       //aaa
+
+//另一种写法 (用一个包含所有属性和方法的对象字面量来重写整个原型对象)
+//但是constructor属性不再指向Person函数，而是指向Object构造函数
+// function Person(){};
+// Person.prototype={
+// 	name:"Nicholas",
+// 	age:29,
+// 	job:"Software Engineer",
+// 	sayname:function(){
+//    	alert(this.name);
+//    }
+// };
+//   var person1=new Person();
+//    var person2=new Person();
+//    person1.name="aaa";
+//   console.log(person1);                   //aaa
+//   console.log(person1.constructor);       //ƒ Object() { [native code] }
+
+// //constructor
+// Car.prototype.name="aaa";
+// function Car(){}
+// var car =new Car();
+
+// 1,
+// Person.prototype.name="aaa";
+// function Person(){}
+// var person=new Person();          //2中prototype换了一个新空间，  
+// Person.prototype.name="bbb";      //而1没有换新空间，而是直接改变了prototype.name的值
+// console.log(person.name);         //bbb  
+
+// 2,
+// Person.prototype.name="sunny";
+// function Person(){
+// 	//var this={ __proto__:prototype }
+// }
+// var person=new Person();
+// Person.prototype={             //Person.protptype创立了一个新对象换了一个新空间,但是__proto__还是
+// 	name:'cherry'                 //指向原来的空间，所以person.log还是原来空间的sunny
+// } 
+// console.log(person.name);      //sunny
+//                                //就相当于var obj={name:"a"};
+//                                //       var obj1=obj;
+//                                //       obj={name:"b"};
+//                                //       console.log(obj1);     //a
+
+// 3,
+// Person.prototype.name="sunny";
+// function Person(){}
+// Person.prototype={           //虽然Person.prototype换了一个新空间
+// 	name:"cherry"            //但是var person=new Person()在Person.prototype={name:"cherry"}之后
+// }                            //所以时cherry
+// var person=new Person();
+// console.log(person.name);    //cherry
+//                              //就相当于var obj={name:"suuny"}
+//                              //       obj={name:"cherry"}
+//                              //       var obj1=obj;
+//                              //       console.log(obj1);        //cherry
+
+ // 4,
+ // Person.prototype.name="aaa";
+ // Person.prototype.age=11;
+ // function Person(){}
+ // var person=new Person();		
+ // var obj={
+ // 	name:"bbb",
+ // 	age:22
+ // }
+ // console.log(person.name);       //aaa 
+ //操作为person.__proto__=obj时   //改变__proto__的指向为obj
+ //person.name为bbb
+//所以_proto_可以人为改变他的指向
+  //---------------------------------------
+//原型链
+// Object.prototype是所有对象的最终原型
+
+
+//sayName()   sayName里面的this指向是：谁调用的这个方法，this就指向谁
+// Person.prototype={
+// 	name:"a",
+//     sayName:function(){
+// 	console.log(this.name);
+//     }
+// }
+// function Person(){
+// 	this.name="b";
+// }
+// var person=new Person();
+
+//-----------------------------------
+
+// this
+// 1,全局作用域里 this-->window
+// 2,函数预编译过程 this-->window
+// 3,obj.function();func里面的this指向obj
+// 4,call,apply可以改变this的指向
+
+// function test(){
+//   console.log(this);    //window
+// }
+// test();
+
+//-----------------------------------
+//call/apply
+
+//作用：改变 this 指向
+//
+//区别：后面传的参数形式不同
+//     call的形式：this的指向+把实参按照形参的个数传进去
+//     apply的形式：this的指向+一个arguments
+
+// 例1
+// function Person(name,age){
+// 	//call的作用：this=obj
+// 	this.name=name;               //obj.name=name
+// 	this.age=age;                 //obj.age=age
+// }
+// var person=new Person("aaa",18);
+// var obj={}
+// Person.call(obj,"bbb",19);        //第一个参数是this的指向，后面的当作实参传进去
+// //直接执行Person()===Person.call() //利用Person()的方法构造了obj
+// //此时obj为{name:"bbb",age:19}
+
+//例2
+// function Wheel(wheelSize,style){
+//     this.wheelSize=wheelSize;
+//     this.style=style
+// }
+// function Sit(c,sitColor){
+// 	this.c=c;
+// 	this.sieColor=sitColor;
+// }
+// function Model(height,width,len){
+// 	this.height=height;
+// 	this.width=width;
+// 	this.len=len;
+// }
+// function Car(wheelSize,style,c,sitColor,height,width,len){
+// 	Wheel.call(this,wheelSize,style);      
+// 	Sit.apply(this,[c,sitColor]);             
+// 	Model.apply(this,[height,width,len]);     
+// }
+// var car =new Car(1,2,3,4,5,6,7);
+
+// 题 ：
+// function foo(){
+// 	bar.apply(null,arguments);
+// }
+// function bar(){
+// 	console.log(arguments);
+// }
+// foo(1,2,3,4,5);            //输出1，2，3，4，5
+
+
+</script>
+</body>
+</html>

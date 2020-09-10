@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+//继承
+
+// //1,原型链继承   
+// //继承了过多的没用的属性
+// Grand.prototype.lastName="aaa";
+// function Grand(){}
+// var grand=new Grand();
+// Father.prototype=grand;
+// function Father(){
+// 	this.name="bbb";
+// }
+// var father=new Father;
+// Son.prototype=father;
+// function Son(){}
+// var son=new Son();
+
+//2，借用构造函数   (使用call/apply)
+// //不能继承借用的构造函数的原型，每次构造函数都要多走一个函数
+// function Person(name,age,sex){
+// 	this.name=name;
+// 	this.age=age;
+// 	this.sex=sex;
+// }
+// function Student(name,age,sex,grade){
+// 	Person.call(this,name,age,sex);
+// 	this.grade=grade;
+// }
+// var student=new Student("aaa",18,"male",19);
+// console.log(student);
+
+//3，共享原型
+// Father.prototype.lastName="ccc";
+// function Father(){}
+// function Son(){}
+// function inherit(Target,Origin) {           // Son.prototype=Father.prototype;
+//     Target.prototype=Origin.prototype;
+// } 
+// inherit(Son,Father);
+// var son=new Son();
+// var father=new Father();
+// console.log(son.lastName);      //ccc
+
+//不能随便改动自己的原型。Son改动原型，Father的原型也会改变，因为Son和Father的原型指向一个空间
+//例：
+// Father.prototype.lastName="ccc";
+// function Father(){}
+// function Son(){}
+// function inherit(Target,Origin) {           // Son.prototype=Father.prototype;
+//     Target.prototype=Origin.prototype;
+// } 
+// inherit(Son,Father);
+// Son.prototype.sex="male";
+// var son=new Son();
+// var father=new Father();
+// console.log(son.sex);           //male
+// console.log(father.sex);        //male
+
+// 4，
+
+// Father.prototype.lastName="ccc";
+// function Father(){}
+// function Son(){}
+// function inherit(Target,Origin) {        
+//     function F(){}
+//     F.prototype=Origin.prototype;     
+//     Son.prototype=new F();
+// } 
+// inherit(Son,Father);
+// Son.prototype.sex="male";
+// var son=new Son();
+// var father=new Father();
+//此时son.constructor不是Son()，而是Father()
+//son.__proto__-->new F().__proto__-->Father.prototype  Father.prototype.constructor -->Father()
+//所以指向紊乱，将其修改，加上语句 Target.prototype.constructor=Target;
+// Father.prototype.lastName="ccc";
+// function Father(){}
+// function Son(){}
+// function inherit(Target,Origin) {        
+//     function F(){}
+//     F.prototype=Origin.prototype;     
+//     Target.prototype=new F();
+//     Target.prototype.constructor=Target;       //son.constructor=Son()
+//     Target.prototype.uber=Origin.prototype;    //信息储存，储存Target的真正继承自谁
+// } 
+// inherit(Son,Father);
+// Son.prototype.sex="male";
+// var son=new Son(); 
+// var father=new Father();
+
+// //其中inherit函数可改为：
+// var inherit=(function(){
+// 	var F=function(){};
+// 	return function(Target,Origin){
+// 		F.prototype=Origin.prototype;     
+//         Target.prototype=new F();
+//         Target.prototype.constructor=Target;       
+//         Target.prototype.uber=Origin.prototype;
+// 	}
+    
+// })();
+
+// //----------------------------------
+//  对象枚举  for in循环
+// var obj={
+// 	name:"aaa",
+// 	age:12,
+// 	height:123,
+// 	weight:1234
+// }
+// for(var prop in obj){
+// 	console.log(prop);     //打印属性name age height weight
+// }
+// for(var prop in obj){
+//     console.log(obj.prop)  //undefined  obj.prop-->obj['prop']
+// }
+// for(var prop in obj){
+// 	console.log(obj[prop]);//aaa 12 123 1234
+// }
+
+
+
+// var obj1={
+// 	name:"aaa",
+// 	age:12,
+// 	height:123,
+// 	weight:1234,
+//     __proto__:{
+//     	lastName:"bbb"
+//     }
+// }
+// Object.prototype.abc=666;
+// for(var prop in obj1){
+// 	console.log(obj1[prop]);            //aaa 12 123 1234 bbb 	                                    //会将原型链中的属性打印出来
+// }                                       //会打印自设的属性如：__proto__  Object.prototype.abc=123
+//                                         //但是不会打印系统自设的愿原型Object.prototype
+// for(var prop in obj1){
+// 	if(obj1.hasOwnProperty(prop)){    //hasOwnProperty方法 返回true-->自己的属性   
+// 		                             //返回false-->原型或原型链上的属性
+// 		console.log(obj1[prop]);      //aaa 12 123 1234   不打印bbb
+// 	}
+// }
+//1，hasOwnProperty方法 返回true-->该属性是自己的属性 返回false-->原型或原型链上的属性
+//2，in操作符：能访问的属性就返回true(父级的也是true) ,不能访问的属性就返回false  不能判断该属性是不是自身的属性'shuxing'in obj
+//3，A instanceof B :看A对象的原型链上有没有B原型
+
+
+// 深层克隆(克隆前后两个对象没有关系)
+// 1,遍历对象for(var prop in obj)
+// 2,判断是不是原始值  typeof() object
+// 3,判断是数组还是对象   toString
+// 4,建立相应的数组或对象
+// 5,使用递归
+
+// function deepClone(origin,target){
+// 	var target=target||{},
+// 	    toStr=Object.prototype.toString,
+// 	    arrStr="[object Array]";
+//     for(var prop in origin){                      //排除origin是null且避免克隆了原型链上的属性和属性值
+//     	if(origin[prop]!=="null"&&origin.hasOwnProperty(prop)){           
+//     		if(typeof(origin[prop])=='object'){       //判断是不是原始值  如果是=="object"是引用值
+//                 if (toStr.call(origin[prop])==arrStr) {
+//                     target[prop]=[];
+//                 }
+//                 else{
+//                      target[prop]={};
+//                 }
+//                 deepClone(origin[prop],target[prop]);
+//     		   }
+//     		   else{                                    //不是引用值，是原始值
+//                 target[prop]=origin[prop];
+//     		}
+//     	}
+//     }
+//     retrun target;
+//  }
+
+// var obj ={
+// 	name:"aaa",
+// 	age:19
+// }
+// var obj1={
+// 	sex:"male"
+// }
+
+//使用三目运算符 ？： 函数可改为
+// function deepClone(origin,target){
+// 	var target=target||{},
+// 	    toStr=Object.prototype.toString,
+// 	    arrStr="[object Array]";
+//     for(var prop in origin){                      
+//     	if(origin[prop]!=="null"&&origin.hasOwnProperty(prop)){           
+//     		 if(typeof(origin[prop])=='object'){       
+//       //           if (toStr.call(origin[prop])==arrStr) {
+//       //               target[prop]=[];
+//       //           }
+//       //           else{
+//       //                target[prop]={};
+//       //           }
+//             target[prop]=(toStr.call(origin[prop])=='arrStr')?[]:{};
+//                 deepClone(origin[prop],target[prop]);
+//     		}
+//     		else{                                   
+//                 target[prop]=origin[prop];
+//     		}
+//     	}
+//     }
+//     return target;
+//  }
+// var obj ={
+// 	name:"aaa",
+// 	age:19
+// }
+// var obj1={
+// 	sex:"male"
+// }
+
+
+
+
+
+
+</script>
+</body>
+</html>

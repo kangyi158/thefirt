@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+
+
+//五个基本类型: string number boolean undefined null
+//引用类型: object function array date 
+
+
+ //经历了var的操作所得出的window的属性,这种属性是不可配置的属性。不可配置的属性  不能delete
+// var num=123;       //delete num-->false
+// window.num1=234;   //delete num1-->true
+//----------------------
+	//1,暗示全局变量(imply global)
+	//即任何变量，如果变量未经声明就赋值，此变量就归全局变量所有
+	//a=10-->window.a=10
+    //2,一切声明的全局变量，全是window属性
+    // eg:var a=123;-->window.a=123;(window:全局的域GO)
+
+
+    // 作用域
+    // 步骤
+    // 1，创建AO对象(Activation Object 执行期上下文)
+         // < 函数每次被执行时的AO都是独一无二，所以每次调用函数会导致创建多个AO。
+         //  执行完成时，同时销毁自己的AO。>
+    // 2，找形参和变量声明，将变量和形参名作为AO属性名，值为undefined
+    // 3，将实参值和形参值相统一
+    // 4，在函数体里找到函数声明，值赋予函数体
+
+
+    // eg:
+    // function fn(a)
+    // {
+    // 	console.log(a);   //fa(){}
+    // 	var a=123;
+    // 	console.log(a);   //123
+    // 	function a(){}
+    // 	console.log(a);   //123
+    // 	var b=function(){}
+    // 	console.log(b);   //f(){}
+    // 	function d(){}
+    // 	console.log(d);   //fd(){}
+    // }
+    // fn(1);
+
+    // 详细过程：
+    // 1，AO{
+    // 	a:undefined
+    // 	b:undefined
+    // }
+    // 2，AO{
+    // 	a:1
+    // 	b:undefined
+    // }
+    // 3，AO{
+    // 	a:fa(){}
+    // 	b:undefined
+    // 	d:fd(){}
+    // }
+
+
+
+//    var func=function(obj)
+//    {
+//    	obj.name="bbb";
+//    	obj=new Object();
+//    	obj.name="ccc";
+//    }
+//    var Obj=new Object();
+//    Obj.name="aaa";
+//    func(Obj);
+//    alert(Obj.name);   
+//        //输出bbb
+//    alert(Obj instanceof Object);  
+
+
+//   var a="1";
+//   alert (a instanceof Object);
+
+  //递归斐波那契数列
+  // function fb(n)
+  // {
+  // 	if(n==1||n===2)
+  // 		return 1;
+  // 	else if(n>2)
+  // 		return fb(n-1)+fb(n-2);
+  // }
+
+//   test();
+//   function test()
+//   {
+//   	console.log("a");
+//   }
+//   console.log(b);
+//   var b="123";
+
+//   window.a=20;
+//   console.log(a);
+//   function test ()
+//   {
+//   	 var a=10;
+//         console.log("a");
+//   }
+//  test();
+//  console.log(a);
+// console.log(window.a);
+
+
+// function fn(a){
+//    console.log(a);
+//    var a=123;
+//    console.log(a);
+//    function a(){}
+//    console.log(a);
+//    console.log(b);
+
+//    var b=function(){}  
+//    console.log(b);
+//    function d(){}
+//    console.log(d);
+// }
+// fn(1);
+
+
+function test(a,b){
+console.log(a);
+console.log(b);
+var b=234;
+console.log(b);
+a=123;
+console.log(a);
+function a(){}
+var a;
+b=234;
+var b=function(){}
+console.log(a);
+console.log(b);
+}
+test(1);
+
+
+
+// m();
+// function m()
+// {
+	
+// function s()
+// {
+// 	a=100;
+// }
+// var a=200;
+// s();
+// console.log(a);
+// }
+
+
+
+// 当一个函数中有两个子函数，则两个子函数共用一个AO
+// function a(){
+// 	var num=100;
+// 	console.log(num);
+// 	function b()
+// 	{
+// 		num++;
+// 		console.log(num);
+// 	}
+// 	return b;  //返回b函数
+// }
+// var demo=a();
+// demo();   //aAO--> 100+1-->101
+// demo();   //aAO--> 101+1-->102
+// demo();
+
+
+// function a()
+// {
+// 	function b()
+// 	{
+// 		var bbb=234;
+// 		console.log(aaa);
+// 	}
+// 	var aaa=123;
+// 	return b;    //b带着a的AO
+// }
+// var glob =100;
+// var demo=a();
+// demo();          //123
+
+
+
+
+// function test()
+// {
+// 	var num=100;
+// 	function a()
+// 	{
+// 		num++;
+// 		console.log(num);
+// 	}
+// 	function b()             //函数a和函数b共用test的AO
+// 	{
+// 		num--;
+// 		console.log(num);
+// 	}
+// 	return [a,b];
+// }
+// var Myarr=test();
+// Myarr[0]();       //101
+// Myarr[1]();       //100
+
+
+
+
+// function test()
+// {
+// 	var arr=[];
+// 	for(var i=0;i<10;i++)   
+// 	{
+// 		arr[i]=function(){
+// 			document.write(i+" "); 
+// 			//function(){document.write(i+" ")}此时不执行
+// 		}
+// 	}
+// 	return arr;
+// }
+// var myarr=test();
+// for(var j=0;j<10;j++)
+// {
+// 	myarr[j]();   //i已经循环到10
+// 	//执行function(){document.write(i+" ")}  //结果：10个10
+// }
+
+
+//使用立即执行函数，使其打印0到9，以下
+// function test()
+// {
+// 	var arr=[];
+// 	for(var i=0;i<10;i++)   
+// 	{
+// 		(function (j){
+// 			arr[j]=function(){
+// 			document.write(j+" "); 
+// 		}
+// 		}(i))
+		
+// 		}
+	
+// 	return arr;
+// }
+// var myarr=test();
+// for(var j=0;j<10;j++)
+// {
+// 	myarr[j]();   
+// }
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

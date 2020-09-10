@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: 3000px;">
+	<!-- <input type="text" value="请输入用户名" style="color: #999"> -->
+
+	<!-- <div class="fix" style="width: 100px;height: 100px;background-color: red;position: absolute;left: 500px;top: 200px;"></div> -->
+
+
+
+<script type="text/javascript">
+
+
+//文本操作事件
+// input,change,focus,blur
+//input  输入框正在输入
+// var input=document.getElementsByTagName('input')[0];
+// input.oninput=function(e){    
+//    console.log(this.value);   
+// }
+
+//change 对比鼠标聚焦和失去焦点，发生改变才触发
+
+// input.onchange=function(e){    
+//    console.log(this.value);   
+// }
+
+//focus  获取焦点
+// var input = document.getElementsByTagName('input')[0];
+// input.onfocus = function(e){
+// 	if(this.value == '请输入用户名'){
+// 		this.value = ' ';
+// 		this.style.color= '#424242';
+// 	}
+// }
+//blur  失去焦点
+// input.onblur = function(e){
+// 	if(this.value == ' '){
+// 		this.value='请输入用户名';
+// 		this.style.color= '#999';
+// 	}
+// }
+
+
+// 窗体类操作事件(window 上的事件)
+// scroll,load
+
+// scroll  //当滚动条滚动 触发事件
+// window.onscroll=function(){
+// 	var len=window.pageYOffset+
+// }
+
+//使用scroll 实现fix函数
+// function fix(elem){
+//     var len=elem.style.top;
+//     window.onscroll=function(){
+// 	    elem.style.top=window.pageYOffset+(parseInt(len))+"px";
+// 	    console.log(window.pageYOffset);
+//     }
+// }
+// var div = document.getElementsByClassName('fix')[0];
+// fix(div);
+
+//load
+// 当页面完全加载后(),就会触发window
+// (包括所有图像,js文件,css文件等外部文件)上面的load事件
+
+
+//BOM
+
+//窗口位置 window中的screenLeft和screenTop  screenX和screenY 
+//分别用于表示窗口相对于屏幕左边和上边的位置
+
+//兼容性写法
+// var leftPos=(window.screenLeft)? window.screenLeft:window.screenX;
+// var topPos=(window.screenTop)?window.screenTop:window.screenY;
+// console.log(leftPos+" "+topPos);
+
+//moveTo() 接收新位置的x,y坐标
+//moveBy() 接收在水平和垂直方向上移动的像素数
+// window.moveTo(300,300);
+// window.moveBy(0,500);
+
+//innerWidth innerHeight   (返回该容器中页面视图区的大小)
+//outerWidth outerHeight  (返回浏览器窗口本身的尺寸)
+
+
+
+</script>
+</body>
+</html>

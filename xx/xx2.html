@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+	</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	// a=100;
+	// function demo(e) {
+	// 	function e(){}
+	// 	arguments[0]=2;
+ //        document.write(e+" ");    //2
+ //        if(a)
+ //        {
+ //        	var b=123;             //不能在if里面定义
+ //        	function c(){}        //不能在if里面提取函数
+ //        }
+ //        var c;
+ //        a=10;
+ //        var a;
+ //        document.write(b+" ");   //undefined
+ //        f=123;
+ //        document.write(c+" ");   //undefined
+ //        document.write(a+" ");   //10
+	// }
+	// var a;
+	// demo(1);
+	// document.write(a+" ");       //100
+ //    document.write(f+" ");       //123
+// demo : AO{
+// 	e:undefined  1  fe(){}  2
+// 	b:undefined
+// 	c:undefined
+// 	a:undefined  10
+// }
+// GO{
+// 	a:undefined  100
+// 	f:undefined  123
+// }
+
+// var x=1;
+// if(function f(){}){
+// 	console.log(typeof(f));   
+// 	x+=typeof(f);
+// 	console.log(typeof(x));
+// }
+// console.log(x);
+
+
+// var f=(
+// 	function a(){
+// 		return 1;
+// 	},
+// 	function  b(){
+// 		return 2;
+// 	}0
+// 	)();
+// console.log(f);             //2
+// console.log(typeof(f));     //number
+
+
+// 对象的创建方法
+// 1，var obj={}   plainObject   对象字面量/对象直接量
+// 2，构造函数
+//    (1),系统自带的构造的函数   new Object()
+//    (2),自定义
+//        function Person(){    //首字母大写
+//        }
+//3，var obj=Object.creat(prototype,definedProperty);  //()中必须填上创建对象的原型或null,第二个参数为对象的属性
+
+// var demo={
+// 	lastName:"aaa"
+// }
+// var obj=Object.create(demo);   //__proto__:demo
+// console.log(obj.lastName);    //aaa
+
+// var obj1=Object.create(null);
+// console.log(obj1.lastName);   //undefined
+
+
+// //构造函数的内部原理
+// //1,在函数体前隐式的加上this={}
+// //2,执行this.xxx=xxx
+// //3,隐式的返回this
+//   function Student(name,age,sex){
+//   	//1,var this={
+//	                    _proto_：Person.prototype
+//                    };
+//          AO{this:{name: ;age: ;sex: ;}}
+//   	//2,执行  this.xxx=xxx            
+//     this.name=name;
+//     this.age=age;
+//     this.sex=sex;
+//     //3,隐式的返回this(return this) 
+//   }
+
+
+  //包装类
+//*原始值没有属性 当给原始值加属性时，隐式的过程就是包装类
+// var num=4;
+// num.len=3;
+//  //隐式的 new Number(4).len=3;   delete;
+//  //
+//  //new Number(4).len
+//  console.log(num.len);                  //undefined
+
+// var num="abc";
+// num.length=5;
+// console.log(num.length);         //3
+
+
+// var str="abc";
+// str+=1;
+// var test=typeof(str);
+// if(test.length==6)                      //test有length属性
+// {
+// 	test.sign="typeof得返回值可能为String"; 
+// 	//test没有sign属性
+// 	//隐式的new String(test).sign="" ;delete;
+// }
+//     //new String(test).sign
+// console.log(test.sign);                //undefined
+
+//-----------------------------
+//闭包 私有化变量
+//1,
+// function Person(name, age,sex){
+// 	var a=0;
+// 	this.name=name;
+// 	this.age=age;
+// 	this.sex=sex;
+// 	function sss(){
+// 		a++;
+// 		console.log(a);
+// 	}
+//     this.say=sss;
+// } 
+// var oPerson=new Person();    
+// oPerson.say();                 //1
+// oPerson.say();                 //2
+// var oPerson1=new Person;
+// oPerson1.say();                //1
+
+
+
+</script>
+
+</body>
+</html>
